@@ -14,6 +14,14 @@ a {
   @apply no-underline outline-none;
 }
 
+img,
+table,
+button {
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
 @theme {
   --color-background: rgb(255, 255, 255);
   --color-primary: rgb(241, 101, 122);
@@ -31,6 +39,10 @@ a {
     user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
+  }
+
+  .divider-gradient {
+    background: linear-gradient(to right, transparent 0%, var(--color-primary), transparent 100%);
   }
 }
 

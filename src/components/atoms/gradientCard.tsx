@@ -5,9 +5,8 @@ interface CardProps {
   data: string[];
 }
 
-export default async function GradientCard({ data }: CardProps) {
-  const title = data[0];
-  data.shift();
+export default function GradientCard({ data }: CardProps) {
+  const [title, ...rest] = data;
 
   return (
     <div
@@ -20,11 +19,13 @@ export default async function GradientCard({ data }: CardProps) {
     >
       <FiGift className="w-8 h-8 text-primary" />
       <h3 className="text-primary font-bold">{title}</h3>
-      {data.map((item, index) => (
-        <p key={index} className="text-xs text-opaque list-disc list-inside">
-          {item}
-        </p>
-      ))}
+      <ul className="list-disc list-inside">
+        {rest.map((item, index) => (
+          <li key={index} className="text-xs text-opaque ">
+            {item}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

@@ -1,17 +1,15 @@
-import { HeaderData } from '@/shared/types/header';
+import { fetchStrapi } from '@/lib/api';
+import { Header } from '@/shared/types/header';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { FaHeart } from 'react-icons/fa';
 
-export default async function Header() {
-  const url = new URL(`${process.env.STRAPI_BASEURL}/api/header`);
-  url.searchParams.set('populate[Picture][populate]', '*');
+export default async function HeaderContent() {
+  const jsonData = await fetchStrapi('header?populate[Picture][populate]=*', {
+    revalidate: 7200,
+  });
 
-  const jsonData = await fetch(url, {
-    next: { revalidate: 7200 },
-  }).then(r => r.json());
-
-  const headerData = HeaderData.fromJson(jsonData);
+  const headerData = Header.fromJson(jsonData);
   const iconHeart = <FaHeart className="w-7 h-7 text-title" />;
 
   return (

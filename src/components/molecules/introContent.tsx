@@ -1,16 +1,13 @@
+import { fetchStrapi } from '@/lib/api';
 import { Introduction } from '@/shared/types/introduction';
-import clsx from 'clsx';
 import { FaHeart } from 'react-icons/fa';
 import GradientCard from '../atoms/gradientCard';
 import StarCard from '../atoms/starCard';
 
 export default async function IntroContent() {
-  const introJson = await fetch(
-    `${process.env.STRAPI_BASEURL}/api/introduction`,
-    {
-      next: { revalidate: 7200 },
-    }
-  ).then(r => r.json());
+  const introJson = await fetchStrapi('introduction', {
+    revalidate: 7200,
+  });
 
   const introduction = Introduction.fromJson(introJson);
 
@@ -26,12 +23,7 @@ export default async function IntroContent() {
 
         <h3 className={`${h3Class} text-center`}>{introduction.title}</h3>
 
-        <div
-          className={clsx(
-            'h-[2px] w-full',
-            'bg-[linear-gradient(to_right,transparent_0%,var(--color-primary),transparent_100%)]'
-          )}
-        />
+        <div className="h-[2px] w-full divider-gradient" />
 
         <p className={pClass}>{introduction.message.top}</p>
 
