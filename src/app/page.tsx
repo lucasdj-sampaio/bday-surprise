@@ -1,43 +1,28 @@
-import Header from '@/components/atoms/header';
+import { CountdownTimer } from '@/components/atoms/countdownTimer';
+import HeaderContent from '@/components/atoms/headerContent';
+import IntroContent from '@/components/molecules/introContent';
+import { fetchStrapi } from '@/lib/api';
 import { Counter } from '@/shared/types/counter';
-import { Introduction } from '@/shared/types/introduction';
 
 export default async function Home() {
-  const jsonCounter = await fetch(`${process.env.STRAPI_BASEURL}/api/counter`, {
-    next: { revalidate: 7200 },
-  }).then(r => r.json());
-
-  const introJson = await fetch(
-    `${process.env.STRAPI_BASEURL}/api/introduction`,
-    {
-      next: { revalidate: 7200 },
-    }
-  ).then(r => r.json());
-
+  const jsonCounter = await fetchStrapi('counter', { revalidate: 7200 });
   const counter = Counter.fromJson(jsonCounter);
-  const introduction = Introduction.fromJson(introJson);
 
   return (
     <div className="relative">
-      <Header />
+      <HeaderContent />
 
-      <div className="absolute top-[95%] left-1/2 -translate-x-1/2 flex flex-col gap-4">
-        <div className="content-card">
-          <h2>{counter.title}</h2>
-          <p>Birthday: {counter.birthday}</p>
-        </div>
-        <div className="content-card">
-          <h2>{introduction.title}</h2>
+      <div className="flex flex-col absolute gap-8 left-1/2 -translate-x-1/2 -translate-4">
+        <section className="content-card">
+          <h2 className="text-2xl font-bold text-subtitle">{counter.title}</h2>
+          <CountdownTimer limit={counter.birthday} />
+        </section>
 
-          {introduction.message.top}
-          {introduction.message.attention}
-          {introduction.message.middle}
-          {introduction.message.card}
-          {introduction.message.bottom}
+        <section className="content-card">
+          <IntroContent />
+        </section>
 
-          <p>{introduction.ready}</p>
-        </div>
-        <div className="content-card"></div>
+        <section className="content-card"></section>
       </div>
     </div>
   );

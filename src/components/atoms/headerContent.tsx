@@ -1,31 +1,30 @@
-import { HeaderData } from '@/shared/types/header';
+import { fetchStrapi } from '@/lib/api';
+import { Header } from '@/shared/types/header';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { FaHeart } from 'react-icons/fa';
 
-export default async function Header() {
-  const url = new URL(`${process.env.STRAPI_BASEURL}/api/header`);
-  url.searchParams.set('populate[Picture][populate]', '*');
+export default async function HeaderContent() {
+  const jsonData = await fetchStrapi('header?populate[Picture][populate]=*', {
+    revalidate: 7200,
+  });
 
-  const jsonData = await fetch(url, {
-    next: { revalidate: 7200 },
-  }).then(r => r.json());
-
-  const headerData = HeaderData.fromJson(jsonData);
+  const headerData = Header.fromJson(jsonData);
+  const iconHeart = <FaHeart className="w-7 h-7 text-title" />;
 
   return (
     <div
       className={clsx(
         'bg-linear-to-r from-primary to-secondary',
         'flex justify-center',
-        'p-8'
+        'p-10'
       )}
     >
       <div className="flex flex-col items-center gap-4">
-        <div className="flex items-center gap-1">
-          <FaHeart />
-          <h1>{headerData.title}</h1>
-          <FaHeart />
+        <div className="flex items-center gap-2">
+          {iconHeart}
+          <h1 className="text-5xl font-bold text-title">{headerData.title}</h1>
+          {iconHeart}
         </div>
 
         <div className="relative w-50 h-50">
@@ -47,7 +46,9 @@ export default async function Header() {
           ></div>
         </div>
 
-        <p className="light">{headerData.description}</p>
+        <p className="text-sm font-normal text-title">
+          {headerData.description}
+        </p>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-export class HeaderData {
+export class Header {
   title: string;
   description: string;
   image?: string;
@@ -9,13 +9,13 @@ export class HeaderData {
     this.image = image;
   }
 
-  static fromJson(json: any): HeaderData {
+  static fromJson(json: any): Header {
     const title = json.data.Title;
     const description = json.data.Description;
     const image = json.data.Picture?.url
       ? `${process.env.STRAPI_BASEURL}${json.data.Picture.url}`
       : undefined;
 
-    return new HeaderData(title, description, image);
+    return new Header(title, description, image);
   }
 }

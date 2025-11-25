@@ -5,7 +5,7 @@ export class Introduction {
   ready: string;
   message: IMessage;
 
-  constructor(title: string, ready: string, message: any) {
+  constructor(title: string, ready: string, message: IMessage) {
     this.title = title;
     this.ready = ready;
     this.message = message;
@@ -14,7 +14,7 @@ export class Introduction {
   static fromJson(json: any): Introduction {
     const title = json.data.Title;
     const ready = json.data.Ready;
-    const message = json.data.Data.message;
+    const message: IMessage = json.data.Data.message;
 
     return new Introduction(title, ready, message);
   }
