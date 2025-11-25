@@ -1,0 +1,51 @@
+@import './designSystem/typography.css';
+@import './reset.css';
+@import 'tailwindcss';
+
+/* Custom resets */
+html,
+body {
+  @apply w-full h-full m-0 p-0 text-base overflow-auto;
+}
+
+body,
+input,
+button {
+  @apply text-base;
+}
+
+button {
+  @apply cursor-pointer;
+}
+
+a {
+  @apply no-underline outline-none;
+}
+
+@theme {
+  --font-poppins-sans: var(--font-poppins);
+  --color-background: rgb(255, 255, 255);
+  --color-primary: rgb(241, 101, 122);
+  --color-secondary: rgb(231, 183, 152);
+  --color-text-title: rgb(255, 255, 255);
+  --color-text-subtitle: rgb(83, 45, 54);
+  --color-text-regular: rgb(73, 54, 61);
+  --color-text-light: rgb(147, 108, 118);
+  --color-text-opaque: rgb(140, 115, 123);
+  --color-textarea: rgb(115, 115, 115);
+}
+
+@layer utilities {
+  .no-select {
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+  }
+}
+
+@layer components {
+  .content-card {
+    @apply bg-background p-8 min-w-[80vw] border border-background rounded-lg shadow-[0px_4px_24px_-4px_rgba(83,45,54,0.1)];
+    @apply flex flex-col gap-4 items-center;
+  }
+}
