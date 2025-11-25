@@ -17,7 +17,7 @@ export function CountdownTimer({ limit }: { limit: string }) {
   }, [limitTime]);
 
   if (diff === null) {
-    return <h3 className="text-xl font-semibold">Calculando…</h3>;
+    return <h3 className="text-2xl font-semibold text-primary">Calculando…</h3>;
   }
 
   const days = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -25,11 +25,15 @@ export function CountdownTimer({ limit }: { limit: string }) {
   const minutes = Math.floor((diff / (1000 * 60)) % 60);
   const seconds = Math.floor((diff / 1000) % 60);
 
+  function plural(value: number, word: string) {
+    return `${word}${value === 1 ? '' : 's'}`;
+  }
+
   const arrayValues = [
-    { value: days, label: days === 1 ? 'Dia' : 'Dias' },
-    { value: hours, label: 'Horas' },
-    { value: minutes, label: 'Minutos' },
-    { value: seconds, label: 'Segundos' },
+    { value: days, label: plural(days, 'Dia') },
+    { value: hours, label: plural(hours, 'Hora') },
+    { value: minutes, label: plural(minutes, 'Minuto') },
+    { value: seconds, label: plural(seconds, 'Segundo') },
   ];
 
   return (
