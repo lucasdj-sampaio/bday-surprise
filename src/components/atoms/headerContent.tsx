@@ -13,7 +13,7 @@ export default async function HeaderContent() {
   const iconHeart = <FaHeart className="w-7 h-7 text-title" />;
 
   return (
-    <div
+    <header
       className={clsx(
         'bg-linear-to-r from-primary to-secondary',
         'flex justify-center',
@@ -50,6 +50,6 @@ export default async function HeaderContent() {
           {headerData.description}
         </p>
       </div>
-    </div>
+    </header>
   );
 }

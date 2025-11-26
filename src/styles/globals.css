@@ -42,13 +42,18 @@ button {
   }
 
   .divider-gradient {
-    background: linear-gradient(to right, transparent 0%, var(--color-primary), transparent 100%);
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      var(--color-primary),
+      transparent 100%
+    );
   }
 }
 
 @layer components {
   .content-card {
-    @apply bg-background p-8 min-w-[80vw] border border-background rounded-lg shadow-[0px_4px_24px_-4px_rgba(83,45,54,0.1)];
+    @apply bg-background p-8 min-w-[80vw] border-1 border-[rgba(237,228,222,1)] rounded-lg shadow-[0px_4px_24px_-4px_rgba(83,45,54,0.1)];
     @apply flex flex-col gap-4 items-center;
   }
 
