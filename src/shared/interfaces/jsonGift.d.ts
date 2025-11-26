@@ -1,0 +1,15 @@
+export interface IGiftSectionJson {
+  Name: string;
+  Title: string;
+  Description: string | null;
+  Available: string;
+  Gifts: any[];
+}
+
+export interface IGiftItemJson {
+  Identifier: string;
+  Title: string;
+  Name: string | null;
+  Tip: string;
+  Found: boolean;
+}

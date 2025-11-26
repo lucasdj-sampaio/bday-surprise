@@ -1,3 +1,4 @@
+import { IGiftSectionJson } from '../interfaces/jsonGift';
 import { GiftItem } from './giftItem';
 
 export class GiftSection {
@@ -38,5 +39,15 @@ export class GiftSection {
     const gifts = (json.Gifts || []).map((g: any) => GiftItem.fromJson(g));
 
     return new GiftSection(name, title, description, available, gifts);
+  }
+
+  toJson(): IGiftSectionJson {
+    return {
+      Name: this.name,
+      Title: this.title,
+      Description: this.description,
+      Available: this.available,
+      Gifts: this.gifts.map(g => g.toJson()),
+    };
   }
 }

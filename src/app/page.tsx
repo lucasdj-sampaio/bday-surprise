@@ -46,7 +46,7 @@ export default async function Home() {
             return (
               <SurpriseBlock
                 key={`surpriseBlock_${i}`}
-                section={section}
+                rawSection={section.toJson()}
                 able={
                   i === 0
                     ? availableCondition

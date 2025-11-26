@@ -1,44 +1,42 @@
 'use client';
-import React, { useEffect, useMemo, useState } from 'react';
+import { addPlural, getRemainingTime } from '@/util';
+import React, { useEffect, useState } from 'react';
 
 export function CountdownTimer({ limit }: { limit: string }) {
-  const limitTime = useMemo(() => new Date(limit).getTime(), [limit]);
-  const [diff, setDiff] = useState<number | null>(null);
+  const [state, setState] = useState<ReturnType<
+    typeof getRemainingTime
+  > | null>(null);
 
   useEffect(() => {
-    const calc = () => Math.max(limitTime - Date.now(), 0);
-    setDiff(calc());
+    const update = () => {
+      setState(getRemainingTime(limit));
+    };
 
-    const interval = setInterval(() => {
-      setDiff(calc());
-    }, 1000);
+    update();
 
+    const interval = setInterval(update, 1000);
     return () => clearInterval(interval);
-  }, [limitTime]);
+  }, [limit]);
 
-  if (diff === null) {
-    return <h3 className="text-2xl font-semibold text-primary">Calculando…</h3>;
+  if (!state) {
+    return <p className="text-2xl font-bold text-primary">Carregando…</p>;
   }
 
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-  const minutes = Math.floor((diff / (1000 * 60)) % 60);
-  const seconds = Math.floor((diff / 1000) % 60);
-
-  function plural(value: number, word: string) {
-    return `${word}${value === 1 ? '' : 's'}`;
+  if (state.expired) {
+    return <p className="text-4xl font-bold text-primary">Chegou! ✨🎉</p>;
   }
 
-  const arrayValues = [
-    { value: days, label: plural(days, 'Dia') },
-    { value: hours, label: plural(hours, 'Hora') },
-    { value: minutes, label: plural(minutes, 'Minuto') },
-    { value: seconds, label: plural(seconds, 'Segundo') },
+  const { d, h, m, s } = state;
+  const metrics = [
+    { value: d, label: addPlural(d, 'Dia') },
+    { value: h, label: addPlural(h, 'Hora') },
+    { value: m, label: addPlural(m, 'Minuto') },
+    { value: s, label: addPlural(s, 'Segundo') },
   ];
 
   return (
     <div className="flex text-xl font-bold gap-4 items-center no-select">
-      {arrayValues.map((item, i) => {
+      {metrics.map((item, i) => {
         return i === 0 && item.value === 0 ? null : (
           <React.Fragment key={i}>
             <div className="flex flex-col items-center gap-1">
@@ -49,7 +47,7 @@ export function CountdownTimer({ limit }: { limit: string }) {
                 {item.label}
               </p>
             </div>
-            {i < arrayValues.length - 1 && (
+            {i < metrics.length - 1 && (
               <span className="text-5xl font-normal text-primary">:</span>
             )}
           </React.Fragment>

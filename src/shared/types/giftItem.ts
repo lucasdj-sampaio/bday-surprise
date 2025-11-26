@@ -1,3 +1,5 @@
+import { IGiftItemJson } from '../interfaces/jsonGift';
+
 export class GiftItem {
   identifier: string;
   title: string;
@@ -27,5 +29,15 @@ export class GiftItem {
       json.Tip,
       json.Found ?? false
     );
+  }
+
+  toJson(): IGiftItemJson {
+    return {
+      Identifier: this.identifier,
+      Title: this.title,
+      Name: this.name,
+      Tip: this.tip,
+      Found: this.found,
+    };
   }
 }
