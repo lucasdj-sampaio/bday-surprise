@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { BsBoxSeam } from 'react-icons/bs';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { SlSocialDropbox } from 'react-icons/sl';
+import GiftCard from '../atoms/giftCard';
 import ProgressBar from '../atoms/progressBar';
 
 interface BlockProps {
@@ -29,7 +30,7 @@ export default function SurpriseBlock({
 
   const blurClass = clsx(
     'no-select transition-all duration-700',
-    able ? 'opacity-100' : 'opacity-100 blur-xs pointer-events-none'
+    !able && 'blur-xs pointer-events-none'
   );
 
   const Icon = able ? SlSocialDropbox : BsBoxSeam;
@@ -116,14 +117,16 @@ export default function SurpriseBlock({
         )}
       </div>
 
-      {open && (
-        <>
-          <p>teste</p>
-          <p>teste</p>
-          <p>teste</p>
-          <p>teste</p>
-        </>
-      )}
+      {open &&
+        section.gifts.map((gift, i) => {
+          return (
+            <GiftCard
+              key={`giftCard_${i}`}
+              gift={gift}
+              unlocked={i === 0 || section.gifts[i - 1].found === true}
+            />
+          );
+        })}
     </div>
   );
 }

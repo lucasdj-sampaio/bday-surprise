@@ -10,6 +10,6 @@ export interface IGiftItemJson {
   Identifier: string;
   Title: string;
   Name: string | null;
-  Tip: string;
+  Clue: string;
   Found: boolean;
 }

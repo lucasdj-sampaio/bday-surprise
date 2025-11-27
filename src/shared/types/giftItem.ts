@@ -4,20 +4,20 @@ export class GiftItem {
   identifier: string;
   title: string;
   name: string | null;
-  tip: string;
+  clue: string;
   found: boolean;
 
   constructor(
     identifier: string,
     title: string,
     name: string | null,
-    tip: string,
+    clue: string,
     found: boolean
   ) {
     this.identifier = identifier;
     this.title = title;
     this.name = name;
-    this.tip = tip;
+    this.clue = clue;
     this.found = found;
   }
 
@@ -26,7 +26,7 @@ export class GiftItem {
       json.Identifier,
       json.Title,
       json.Name ?? null,
-      json.Tip,
+      json.Clue,
       json.Found ?? false
     );
   }
@@ -36,7 +36,7 @@ export class GiftItem {
       Identifier: this.identifier,
       Title: this.title,
       Name: this.name,
-      Tip: this.tip,
+      Clue: this.clue,
       Found: this.found,
     };
   }
