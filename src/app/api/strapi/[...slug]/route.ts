@@ -1,4 +1,5 @@
-export async function GET(req: Request, { params }: any) {
+export async function GET(req: Request, props: any) {
+  const params = await props.params;
   const base = process.env.STRAPI_BASEURL!;
   const url = new URL(req.url);
 

@@ -30,6 +30,10 @@ export class GiftSection {
     return (this.unlockedGiftsCount / this.gifts.length) * 100;
   }
 
+  get isAvailable(): boolean {
+    return Date.now() >= new Date(this.available).getTime();
+  }
+
   static fromJson(json: any): GiftSection {
     const name = json.Name;
     const title = json.Title;

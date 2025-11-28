@@ -44,10 +44,7 @@ export default function GiftCard({ gift, unlocked }: CardProps) {
   );
 
   return (
-    <div
-      id={currentClueCondition ? gift.identifier : undefined}
-      className={containerClass}
-    >
+    <div id={gift.id.toString()} className={containerClass}>
       <div className={iconClass}>
         <Icon
           className={

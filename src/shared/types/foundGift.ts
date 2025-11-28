@@ -1,12 +1,12 @@
 export class FoundGift {
   name: string;
   image?: string;
-  nextIdentifier?: string;
+  nextId?: number;
 
-  constructor(name: string, nextIdentifier?: string, image?: string) {
+  constructor(name: string, nextId?: number, image?: string) {
     this.name = name;
     this.image = image;
-    this.nextIdentifier = nextIdentifier;
+    this.nextId = nextId;
   }
 
   static fromJson(json: any): FoundGift {
@@ -14,8 +14,8 @@ export class FoundGift {
     const image = json.image
       ? `${process.env.STRAPI_BASEURL}${json.image}`
       : undefined;
-    const nextIdentifier = json.nextIdentifier;
+    const nextId = json.nextId;
 
-    return new FoundGift(name, nextIdentifier, image);
+    return new FoundGift(name, nextId, image);
   }
 }

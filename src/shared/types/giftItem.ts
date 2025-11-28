@@ -1,6 +1,7 @@
 import { IGiftItemJson } from '../interfaces/jsonGift';
 
 export class GiftItem {
+  id: number;
   identifier: string;
   title: string;
   name: string | null;
@@ -8,12 +9,14 @@ export class GiftItem {
   found: boolean;
 
   constructor(
+    id: number,
     identifier: string,
     title: string,
     name: string | null,
     clue: string,
     found: boolean
   ) {
+    this.id = id;
     this.identifier = identifier;
     this.title = title;
     this.name = name;
@@ -23,6 +26,7 @@ export class GiftItem {
 
   static fromJson(json: any): GiftItem {
     return new GiftItem(
+      json.id,
       json.Identifier,
       json.Title,
       json.Name ?? null,
@@ -33,6 +37,7 @@ export class GiftItem {
 
   toJson(): IGiftItemJson {
     return {
+      id: this.id,
       Identifier: this.identifier,
       Title: this.title,
       Name: this.name,

@@ -42,13 +42,14 @@ export default function ContentManager({
       <div className="text-center">
         <h2 className="text-2xl font-bold text-subtitle">{content.title}</h2>
         <p className="text-sm text-light font-ultra-light">
-          {`${1} de ${content.sections.length} blocos desbloqueados`}
+          {`${content.sections.filter(s => s.isAvailable).length} de ${
+            content.sections.length
+          } blocos disponíveis`}
         </p>
       </div>
 
       {content.sections.map((section, i) => {
-        const availableCondition =
-          Date.now() >= new Date(section.available).getTime();
+        const availableCondition = section.isAvailable;
 
         return (
           <GiftBlock

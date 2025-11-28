@@ -18,9 +18,9 @@ export default function GiftBlock({ section, able = false }: BlockProps) {
   const [open, setOpen] = useState(section.progress < 100 && able);
   const [mounted, setMounted] = useState(false);
 
-  const remainingMessage = `Termine o bloco ${
+  const remainingMessage = `Termine o ${
     Number(section.name.split(' ')[1]) - 1
-  }`;
+  }º bloco`;
 
   const [remaining, setRemaining] = useState(() =>
     getRemainingTime(section.available, remainingMessage)
@@ -45,20 +45,23 @@ export default function GiftBlock({ section, able = false }: BlockProps) {
 
   const blurClass = clsx(
     'no-select transition-all duration-700',
-    !able && 'blur-xs pointer-events-none'
+    !able && !section.isAvailable && 'blur-xs pointer-events-none'
   );
 
   const Icon = able ? SlSocialDropbox : BsBoxSeam;
 
   const safeTitle = able
     ? section.title
-    : mounted
+    : mounted && !section.isAvailable
     ? scrambleText(section.title)
     : section.title;
 
-  const safeDescription = able
-    ? section.description
-    : scrambleText(section.description ?? '');
+  const safeDescription =
+    able || section.isAvailable
+      ? section.description
+      : mounted
+      ? scrambleText(section.description ?? '')
+      : section.description;
 
   return (
     <div
@@ -71,7 +74,7 @@ export default function GiftBlock({ section, able = false }: BlockProps) {
           : 'cursor-not-allowed bg-secondary/10 opacity-80'
       )}
     >
-      <div className="flex items-center justify-between gap-4">
+      <div className="grid grid-cols-[370px_auto] items-center gap-4">
         <div className="flex items-center gap-4">
           <div
             className={clsx(

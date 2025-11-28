@@ -14,6 +14,7 @@ export interface IGiftSectionJson {
 }
 
 export interface IGiftItemJson {
+  id: number;
   Identifier: string;
   Title: string;
   Name: string | null;

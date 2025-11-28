@@ -45,12 +45,10 @@ export default async function GiftPage({ params }: { params: { id: string } }) {
       </p>
 
       <a
-        href={`/#${gift.nextIdentifier}`}
+        href={`/#${gift.nextId}`}
         className="bg-primary text-title font-semibold p-4 rounded-lg"
       >
-        {gift.nextIdentifier
-          ? 'Desvendar a próxima pista'
-          : 'Concluir aventura 🌟'}
+        {gift.nextId ? 'Desvendar a próxima pista' : 'Concluir aventura 🌟'}
       </a>
     </section>
   );
