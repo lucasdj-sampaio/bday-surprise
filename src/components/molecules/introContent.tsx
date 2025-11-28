@@ -1,4 +1,4 @@
-import { fetchStrapi } from '@/lib/api';
+import { fetchStrapi } from '@/app/api/strapi';
 import { Introduction } from '@/shared/types/introduction';
 import { FaHeart } from 'react-icons/fa';
 import GradientCard from '../atoms/gradientCard';

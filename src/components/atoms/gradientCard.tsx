@@ -21,7 +21,7 @@ export default function GradientCard({ data }: CardProps) {
       <h3 className="text-primary font-bold">{title}</h3>
       <ul className="list-disc list-inside">
         {rest.map((item, index) => (
-          <li key={index} className="text-xs text-opaque ">
+          <li key={index} className="text-xs text-opaque list-none">
             {item}
           </li>
         ))}
