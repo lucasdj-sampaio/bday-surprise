@@ -1,4 +1,4 @@
-import { fetchStrapi } from '@/lib/api';
+import { fetchStrapi } from '@/app/api/strapi';
 import { Header } from '@/shared/types/header';
 import clsx from 'clsx';
 import Image from 'next/image';

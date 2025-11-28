@@ -1,3 +1,10 @@
+export interface IGiftContentJson {
+  data: {
+    Title: string;
+    Section: any[];
+  };
+}
+
 export interface IGiftSectionJson {
   Name: string;
   Title: string;

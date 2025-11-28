@@ -1,19 +1,20 @@
-export function scrambleText(text: string): string {
+export function scrambleText(text?: string | null): string {
+  if (!text) return '';
+
   return text
     .split(' ')
     .map(word => {
       if (word.length <= 2) return word;
 
       const first = word[0];
-      const middle = word.slice(1, -1).split('');
-      const last = word[word.length - 1];
+      const rest = word.slice(1);
 
-      for (let i = middle.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [middle[i], middle[j]] = [middle[j], middle[i]];
-      }
+      const scrambled = rest
+        .split('')
+        .sort(() => Math.random() - 0.5)
+        .join('');
 
-      return first + middle.join('') + last;
+      return first + scrambled;
     })
     .join(' ');
 }

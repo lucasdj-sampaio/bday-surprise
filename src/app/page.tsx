@@ -1,18 +1,18 @@
+import { fetchStrapi } from '@/app/api/strapi';
 import { CountdownTimer } from '@/components/atoms/countdownTimer';
 import HeaderContent from '@/components/atoms/headerContent';
+import ContentManager from '@/components/molecules/giftContent/contentManager';
 import IntroContent from '@/components/molecules/introContent';
-import SurpriseBlock from '@/components/molecules/surpriseBlock';
-import { fetchStrapi } from '@/lib/api';
 import { Counter } from '@/shared/types/counter';
 import { GiftContent } from '@/shared/types/giftContent';
 
 export default async function Home() {
   const jsonCounter = await fetchStrapi('counter', { revalidate: 7200 });
-  const json = await fetchStrapi('content?populate[Section][populate]=*', {
-    revalidate: 60,
-  });
-
   const counter = Counter.fromJson(jsonCounter);
+
+  const json = await fetchStrapi('content?populate[Section][populate]=*', {
+    noStore: true,
+  });
   const content = GiftContent.fromJson(json);
 
   return (
@@ -29,34 +29,7 @@ export default async function Home() {
           <IntroContent />
         </section>
 
-        <section className="content-card mb-8">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold text-subtitle">
-              {content.title}
-            </h2>
-            <p className="text-sm text-light font-ultra-light">
-              {`${1} de ${content.sections.length} blocos desbloqueados`}
-            </p>
-          </div>
-
-          {content.sections.map((section, i) => {
-            const availableCondition =
-              Date.now() >= new Date(section.available).getTime();
-
-            return (
-              <SurpriseBlock
-                key={`surpriseBlock_${i}`}
-                rawSection={section.toJson()}
-                able={
-                  i === 0
-                    ? availableCondition
-                    : availableCondition &&
-                      content.sections[i - 1].progress === 100
-                }
-              />
-            );
-          })}
-        </section>
+        <ContentManager initialRawContent={content.toJson()} />
       </div>
     </div>
   );

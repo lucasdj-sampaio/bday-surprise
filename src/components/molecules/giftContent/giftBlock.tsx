@@ -1,5 +1,4 @@
 'use client';
-import { IGiftSectionJson } from '@/shared/interfaces/jsonGift';
 import { GiftSection } from '@/shared/types/giftSection';
 import { getRemainingTime, scrambleText } from '@/util';
 import clsx from 'clsx';
@@ -7,23 +6,39 @@ import { useEffect, useState } from 'react';
 import { BsBoxSeam } from 'react-icons/bs';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { SlSocialDropbox } from 'react-icons/sl';
-import GiftCard from '../atoms/giftCard';
-import ProgressBar from '../atoms/progressBar';
+import GiftCard from '../../atoms/giftCard';
+import ProgressBar from '../../atoms/progressBar';
 
 interface BlockProps {
-  rawSection: IGiftSectionJson;
+  section: GiftSection;
   able?: boolean;
 }
 
-export default function SurpriseBlock({
-  rawSection,
-  able = false,
-}: BlockProps) {
-  const section = GiftSection.fromJson(rawSection);
-  const [open, setOpen] = useState(false);
+export default function GiftBlock({ section, able = false }: BlockProps) {
+  const [open, setOpen] = useState(section.progress < 100 && able);
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => setMounted(true), []);
+  const remainingMessage = `Termine o bloco ${
+    Number(section.name.split(' ')[1]) - 1
+  }`;
+
+  const [remaining, setRemaining] = useState(() =>
+    getRemainingTime(section.available, remainingMessage)
+  );
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!able && !remaining.expired) {
+      const interval = setInterval(() => {
+        setRemaining(getRemainingTime(section.available, remainingMessage));
+      }, 60000);
+
+      return () => clearInterval(interval);
+    }
+  }, [able]);
 
   const fadedText = able ? 'text-regular' : 'text-regular/80';
   const lightText = able ? 'text-light' : 'text-light/80';
@@ -45,18 +60,12 @@ export default function SurpriseBlock({
     ? section.description
     : scrambleText(section.description ?? '');
 
-  const remaining = getRemainingTime(
-    section.available,
-    `Termine o bloco ${Number(section.name.split(' ')[1]) - 1}`
-  );
-
   return (
     <div
       onClick={() => able && setOpen(!open)}
       className={clsx(
         'flex flex-col w-lg gap-4 p-4 rounded-xl border transition-all',
         'border-[rgba(237,228,222,1)]',
-
         able
           ? 'cursor-pointer bg-secondary/2'
           : 'cursor-not-allowed bg-secondary/10 opacity-80'
@@ -99,7 +108,6 @@ export default function SurpriseBlock({
               </p>
               <ProgressBar progress={section.progress} />
             </div>
-
             <div className="[&>svg]:w-3 [&>svg]:text-regular/60">
               {open ? <IoIosArrowUp /> : <IoIosArrowDown />}
             </div>
@@ -109,7 +117,6 @@ export default function SurpriseBlock({
             <p className="text-sm text-regular/60">
               {remaining.expired ? 'Já disponível' : 'Disponível em'}
             </p>
-
             <p className="bg-primary/80 rounded-xl text-sm text-center px-3 py-1 text-title font-semibold">
               {remaining.text}
             </p>
@@ -118,15 +125,13 @@ export default function SurpriseBlock({
       </div>
 
       {open &&
-        section.gifts.map((gift, i) => {
-          return (
-            <GiftCard
-              key={`giftCard_${i}`}
-              gift={gift}
-              unlocked={i === 0 || section.gifts[i - 1].found === true}
-            />
-          );
-        })}
+        section.gifts.map((gift, i) => (
+          <GiftCard
+            key={`giftCard_${i}`}
+            gift={gift}
+            unlocked={i === 0 || section.gifts[i - 1].found}
+          />
+        ))}
     </div>
   );
 }

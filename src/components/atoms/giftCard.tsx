@@ -11,6 +11,7 @@ interface CardProps {
 
 export default function GiftCard({ gift, unlocked }: CardProps) {
   const isFound = gift.found;
+  const currentClueCondition = !isFound && unlocked;
 
   const Icon = isFound
     ? IoCheckmarkOutline
@@ -43,7 +44,10 @@ export default function GiftCard({ gift, unlocked }: CardProps) {
   );
 
   return (
-    <div className={containerClass}>
+    <div
+      id={currentClueCondition ? gift.identifier : undefined}
+      className={containerClass}
+    >
       <div className={iconClass}>
         <Icon
           className={
@@ -64,7 +68,7 @@ export default function GiftCard({ gift, unlocked }: CardProps) {
             {isFound ? gift.name : unlocked ? 'Dica: ' : 'Bloqueado'}
           </strong>
 
-          {!isFound && unlocked && gift.clue}
+          {currentClueCondition && gift.clue}
         </p>
       </div>
     </div>

@@ -1,3 +1,4 @@
+import { IGiftContentJson } from '../interfaces/jsonGift';
 import { GiftSection } from './giftSection';
 
 export class GiftContent {
@@ -19,5 +20,14 @@ export class GiftContent {
     );
 
     return new GiftContent(title, sections);
+  }
+
+  toJson(): IGiftContentJson {
+    return {
+      data: {
+        Title: this.title,
+        Section: this.sections.map(s => s.toJson()),
+      },
+    };
   }
 }

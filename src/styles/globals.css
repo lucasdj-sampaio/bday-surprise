@@ -4,6 +4,7 @@
 html,
 body {
   @apply w-full h-full m-0 p-0 overflow-auto;
+  scroll-behavior: smooth;
 }
 
 button {
@@ -60,4 +61,19 @@ button {
   .timer-card {
     @apply bg-linear-to-br from-primary to-secondary w-20 h-18 rounded-lg shadow-[0px_4px_24px_-4px_rgba(83,45,54,0.2)] flex items-center justify-center;
   }
+}
+
+@keyframes revealBlur {
+  0% {
+    filter: blur(20px);
+    opacity: 0;
+  }
+  100% {
+    filter: blur(0px);
+    opacity: 1;
+  }
+}
+
+.animate-reveal-blur {
+  animation: revealBlur 0.8s ease-out forwards;
 }
