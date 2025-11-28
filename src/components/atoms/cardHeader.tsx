@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import { FaHeart } from 'react-icons/fa';
 
-export default async function HeaderContent() {
+export default async function CardHeader() {
   const jsonData = await fetchStrapi('header?populate[Picture][populate]=*', {
     revalidate: 7200,
   });

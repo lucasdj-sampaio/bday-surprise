@@ -8,7 +8,7 @@ interface ContentManagerProps {
   initialRawContent: IGiftContentJson;
 }
 
-export default function ContentManager({
+export default function GiftContentManager({
   initialRawContent,
 }: ContentManagerProps) {
   const [content, setContent] = useState(() =>

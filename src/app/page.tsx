@@ -1,7 +1,7 @@
 import { fetchStrapi } from '@/app/api/strapi';
+import CardHeader from '@/components/atoms/cardHeader';
 import { CountdownTimer } from '@/components/atoms/countdownTimer';
-import HeaderContent from '@/components/atoms/headerContent';
-import ContentManager from '@/components/molecules/giftContent/contentManager';
+import GiftContentManager from '@/components/molecules/giftContent/giftContentManager';
 import IntroContent from '@/components/molecules/introContent';
 import { Counter } from '@/shared/types/counter';
 import { GiftContent } from '@/shared/types/giftContent';
@@ -17,7 +17,7 @@ export default async function Home() {
 
   return (
     <div className="relative">
-      <HeaderContent />
+      <CardHeader />
 
       <div className="flex flex-col absolute gap-8 left-1/2 -translate-x-1/2 -translate-4">
         <section className="content-card">
@@ -31,7 +31,7 @@ export default async function Home() {
           <IntroContent />
         </section>
 
-        <ContentManager initialRawContent={content.toJson()} />
+        <GiftContentManager initialRawContent={content.toJson()} />
       </div>
     </div>
   );
