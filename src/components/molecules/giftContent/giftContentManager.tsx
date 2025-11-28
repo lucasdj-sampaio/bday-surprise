@@ -55,7 +55,7 @@ export default function GiftContentManager({
           <GiftBlock
             key={`surpriseBlock_${i}`}
             section={section}
-            able={
+            isEnable={
               i === 0
                 ? availableCondition
                 : availableCondition && content.sections[i - 1].progress === 100

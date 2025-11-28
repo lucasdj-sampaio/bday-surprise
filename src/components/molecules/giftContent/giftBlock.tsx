@@ -11,11 +11,11 @@ import ProgressBar from '../../atoms/progressBar';
 
 interface BlockProps {
   section: GiftSection;
-  able?: boolean;
+  isEnable?: boolean;
 }
 
-export default function GiftBlock({ section, able = false }: BlockProps) {
-  const [open, setOpen] = useState(section.progress < 100 && able);
+export default function GiftBlock({ section, isEnable = false }: BlockProps) {
+  const [open, setOpen] = useState(section.progress < 100 && isEnable);
   const [mounted, setMounted] = useState(false);
 
   const remainingMessage = `Termine o ${
@@ -31,33 +31,33 @@ export default function GiftBlock({ section, able = false }: BlockProps) {
   }, []);
 
   useEffect(() => {
-    if (!able && !remaining.expired) {
+    if (!isEnable && !remaining.expired) {
       const interval = setInterval(() => {
         setRemaining(getRemainingTime(section.available, remainingMessage));
       }, 60000);
 
       return () => clearInterval(interval);
     }
-  }, [able]);
+  }, [isEnable]);
 
-  const fadedText = able ? 'text-regular' : 'text-regular/80';
-  const lightText = able ? 'text-light' : 'text-light/80';
+  const fadedText = isEnable ? 'text-regular' : 'text-regular/80';
+  const lightText = isEnable ? 'text-light' : 'text-light/80';
 
   const blurClass = clsx(
     'no-select transition-all duration-700',
-    !able && !section.isAvailable && 'blur-xs pointer-events-none'
+    !isEnable && !section.isAvailable && 'blur-xs pointer-events-none'
   );
 
-  const Icon = able ? SlSocialDropbox : BsBoxSeam;
+  const Icon = isEnable ? SlSocialDropbox : BsBoxSeam;
 
-  const safeTitle = able
+  const safeTitle = isEnable
     ? section.title
     : mounted && !section.isAvailable
     ? scrambleText(section.title)
     : section.title;
 
   const safeDescription =
-    able || section.isAvailable
+    isEnable || section.isAvailable
       ? section.description
       : mounted
       ? scrambleText(section.description ?? '')
@@ -65,11 +65,11 @@ export default function GiftBlock({ section, able = false }: BlockProps) {
 
   return (
     <article
-      onClick={() => able && setOpen(!open)}
+      onClick={() => isEnable && setOpen(!open)}
       className={clsx(
         'flex flex-col w-lg gap-4 p-4 rounded-xl border transition-all',
         'border-[rgba(237,228,222,1)]',
-        able
+        isEnable
           ? 'cursor-pointer bg-secondary/2'
           : 'cursor-not-allowed bg-secondary/10 opacity-80'
       )}
@@ -103,7 +103,7 @@ export default function GiftBlock({ section, able = false }: BlockProps) {
           </div>
         </div>
 
-        {able ? (
+        {isEnable ? (
           <div className="flex items-center gap-2">
             <div className="flex flex-col items-end">
               <span className="text-sm text-regular/60">
