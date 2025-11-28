@@ -19,30 +19,30 @@ export default async function GiftPage({ params }: { params: { id: string } }) {
   const gift = FoundGift.fromJson(json);
 
   return (
-    <section className="flex flex-col items-center gap-6 p-8">
+    <section className="flex flex-col text-center items-center bg-blend-saturation justify-center h-full gap-6 p-8">
       <RandomConfetti />
 
-      <h1 className="text-3xl font-bold text-subtitle">
+      <h1 className="text-2xl md:text-3xl font-bold text-subtitle">
         ✨ Parabéns! Um novo presente foi revelado! ✨
       </h1>
-      <p className="text-light text-center text-lg">
-        Olha só o que você encontrou:
-      </p>
-      <div className="relative">
-        {gift.image && (
+
+      <p className="text-light text-lg">Olha só o que você encontrou:</p>
+
+      {gift.image && (
+        <div className="relative bg-css-noise p-8 rounded-xl animate-reveal-blur">
           <Image
             src={gift.image}
             alt={gift.name}
-            width={250}
-            height={250}
-            className="object-cover rounded-xl animate-reveal-blur"
+            width={200}
+            height={200}
+            className="object-cover"
           />
-        )}
-      </div>
+        </div>
+      )}
 
-      <p className="text-xl font-semibold text-subtitle animate-reveal-blur">
+      <h2 className="text-xl font-semibold text-subtitle animate-reveal-blur">
         {gift.name.toUpperCase()}
-      </p>
+      </h2>
 
       <a
         href={`/#${gift.nextId}`}

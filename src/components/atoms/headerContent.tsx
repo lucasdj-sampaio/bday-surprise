@@ -10,24 +10,26 @@ export default async function HeaderContent() {
   });
 
   const headerData = Header.fromJson(jsonData);
-  const iconHeart = <FaHeart className="w-7 h-7 text-title" />;
+  const iconHeart = <FaHeart className="w-5 h-5 text-title md:w-7 md:h-7" />;
 
   return (
     <header
       className={clsx(
         'bg-linear-to-r from-primary to-secondary',
         'flex justify-center',
-        'p-10'
+        'p-8 md:p-10'
       )}
     >
       <div className="flex flex-col items-center gap-4">
         <div className="flex items-center gap-2">
           {iconHeart}
-          <h1 className="text-5xl font-bold text-title">{headerData.title}</h1>
+          <h1 className="text-3xl md:text-5xl font-bold text-title">
+            {headerData.title}
+          </h1>
           {iconHeart}
         </div>
 
-        <div className="relative w-50 h-50">
+        <div className="relative w-40 h-40 md:w-50 md:h-50">
           {headerData.image && (
             <Image
               src={headerData.image}
@@ -43,7 +45,7 @@ export default async function HeaderContent() {
               'absolute inset-0 rounded-full',
               'ring-4 ring-inset ring-[rgba(255,255,255,0.4)]'
             )}
-          ></div>
+          />
         </div>
 
         <p className="text-sm font-normal text-title">

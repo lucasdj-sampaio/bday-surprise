@@ -21,7 +21,9 @@ export default async function Home() {
 
       <div className="flex flex-col absolute gap-8 left-1/2 -translate-x-1/2 -translate-4">
         <section className="content-card">
-          <h2 className="text-2xl font-bold text-subtitle">{counter.title}</h2>
+          <h2 className="text-xl md:text-2xl font-bold text-subtitle">
+            {counter.title}
+          </h2>
           <CountdownTimer limit={counter.birthday} />
         </section>
 

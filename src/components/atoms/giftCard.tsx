@@ -58,7 +58,7 @@ export default function GiftCard({ gift, unlocked }: CardProps) {
       </div>
 
       <div>
-        <h4 className={titleClass}>{gift.title}</h4>
+        <h5 className={titleClass}>{gift.title}</h5>
 
         <p className={descriptionClass}>
           <strong className="font-medium">

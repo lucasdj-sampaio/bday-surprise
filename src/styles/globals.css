@@ -3,7 +3,7 @@
 /* Custom resets */
 html,
 body {
-  @apply w-full h-full m-0 p-0 overflow-auto;
+  @apply w-full h-full m-0 p-0 overflow-y-auto overflow-x-hidden;
   scroll-behavior: smooth;
 }
 
@@ -50,16 +50,39 @@ button {
       transparent 100%
     );
   }
+
+  .animate-reveal-blur {
+    animation: revealBlur 0.8s ease-out forwards;
+  }
+
+  .bg-css-noise {
+    background-color: #e8b57f;
+    position: relative;
+  }
+
+  .bg-css-noise::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: radial-gradient(
+      circle,
+      rgba(0, 0, 0, 0.1) 1px,
+      transparent 1px
+    );
+    background-size: 2px 2px;
+    opacity: 0.2;
+  }
 }
 
 @layer components {
   .content-card {
-    @apply bg-background p-8 min-w-[80vw] border-1 border-[rgba(237,228,222,1)] rounded-lg shadow-[0px_4px_24px_-4px_rgba(83,45,54,0.1)];
+    @apply bg-background py-8 px-4 md:p-8 max-w-[100%] md:min-w-[80vw] border-1 border-[rgba(237,228,222,1)] rounded-lg shadow-[0px_4px_24px_-4px_rgba(83,45,54,0.1)];
     @apply flex flex-col gap-4 items-center;
   }
 
   .timer-card {
-    @apply bg-linear-to-br from-primary to-secondary w-20 h-18 rounded-lg shadow-[0px_4px_24px_-4px_rgba(83,45,54,0.2)] flex items-center justify-center;
+    @apply bg-linear-to-br from-primary to-secondary w-16 h-15 md:w-20 md:h-18 rounded-lg shadow-[0px_4px_24px_-4px_rgba(83,45,54,0.2)] flex items-center justify-center;
   }
 }
 
@@ -72,8 +95,4 @@ button {
     filter: blur(0px);
     opacity: 1;
   }
-}
-
-.animate-reveal-blur {
-  animation: revealBlur 0.8s ease-out forwards;
 }

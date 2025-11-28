@@ -64,7 +64,7 @@ export default function GiftBlock({ section, able = false }: BlockProps) {
       : section.description;
 
   return (
-    <div
+    <article
       onClick={() => able && setOpen(!open)}
       className={clsx(
         'flex flex-col w-lg gap-4 p-4 rounded-xl border transition-all',
@@ -74,7 +74,7 @@ export default function GiftBlock({ section, able = false }: BlockProps) {
           : 'cursor-not-allowed bg-secondary/10 opacity-80'
       )}
     >
-      <div className="grid grid-cols-[370px_auto] items-center gap-4">
+      <div className="grid grid-cols-[120px_auto] md:grid-cols-[370px_auto] items-center gap-4">
         <div className="flex items-center gap-4">
           <div
             className={clsx(
@@ -87,13 +87,13 @@ export default function GiftBlock({ section, able = false }: BlockProps) {
           </div>
 
           <div className="flex flex-col">
-            <p className={clsx('text-xs font-light', lightText)}>
+            <span className={clsx('text-xs font-light', lightText)}>
               {section.name}
-            </p>
+            </span>
 
-            <p className={clsx('text-lg font-bold', fadedText, blurClass)}>
+            <h4 className={clsx('text-lg font-bold', fadedText, blurClass)}>
               {safeTitle}
-            </p>
+            </h4>
 
             {section.description && (
               <p className={clsx('text-xs font-light', lightText, blurClass)}>
@@ -106,9 +106,10 @@ export default function GiftBlock({ section, able = false }: BlockProps) {
         {able ? (
           <div className="flex items-center gap-2">
             <div className="flex flex-col items-end">
-              <p className="text-sm text-regular/60">
+              <span className="text-sm text-regular/60">
                 {section.unlockedGiftsCount}/{section.gifts.length}
-              </p>
+              </span>
+
               <ProgressBar progress={section.progress} />
             </div>
             <div className="[&>svg]:w-3 [&>svg]:text-regular/60">
@@ -117,12 +118,13 @@ export default function GiftBlock({ section, able = false }: BlockProps) {
           </div>
         ) : (
           <div className="flex flex-col gap-1 text-center">
-            <p className="text-sm text-regular/60">
+            <span className="text-sm text-regular/60">
               {remaining.expired ? 'Já disponível' : 'Disponível em'}
-            </p>
-            <p className="bg-primary/80 rounded-xl text-sm text-center px-3 py-1 text-title font-semibold">
+            </span>
+
+            <span className="bg-primary/80 rounded-xl text-sm text-center px-3 py-1 text-title font-semibold">
               {remaining.text}
-            </p>
+            </span>
           </div>
         )}
       </div>
@@ -135,6 +137,6 @@ export default function GiftBlock({ section, able = false }: BlockProps) {
             unlocked={i === 0 || section.gifts[i - 1].found}
           />
         ))}
-    </div>
+    </article>
   );
 }
