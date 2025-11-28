@@ -1,3 +1,5 @@
+import { imagePathValidation } from '@/util';
+
 export class FoundGift {
   name: string;
   image?: string;
@@ -11,9 +13,7 @@ export class FoundGift {
 
   static fromJson(json: any): FoundGift {
     const name = json.name;
-    const image = json.image
-      ? `${process.env.STRAPI_BASEURL}${json.image}`
-      : undefined;
+    const image = imagePathValidation(json.image);
     const nextId = json.nextId;
 
     return new FoundGift(name, nextId, image);

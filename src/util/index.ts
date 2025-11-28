@@ -65,3 +65,11 @@ export function getRemainingTime(
 
   return { raw: diff, d, h, m, s, text, expired: false };
 }
+
+export function imagePathValidation(url?: string | null) {
+  if (!url) return '';
+
+  if (url.startsWith('http')) return url;
+
+  return `${process.env.STRAPI_BASEURL}${url}`;
+}
