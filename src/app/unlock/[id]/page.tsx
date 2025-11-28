@@ -1,5 +1,5 @@
 import { fetchStrapi } from '@/app/api/strapi';
-import RandomConfetti from '@/components/atoms/confetti';
+import RandomConfetti from '@/components/molecules/randomConfetti';
 import { FoundGift } from '@/shared/types/foundGift';
 import Image from 'next/image';
 
@@ -22,27 +22,35 @@ export default async function GiftPage({ params }: { params: { id: string } }) {
     <section className="flex flex-col items-center gap-6 p-8">
       <RandomConfetti />
 
-      <h1 className="text-3xl font-bold text-subtitle">🎉 Parabéns! 🎉</h1>
+      <h1 className="text-3xl font-bold text-subtitle">
+        ✨ Parabéns! Um novo presente foi revelado! ✨
+      </h1>
       <p className="text-light text-center text-lg">
-        Você acabou de desbloquear:
+        Olha só o que você encontrou:
       </p>
       <div className="relative">
         {gift.image && (
           <Image
             src={gift.image}
             alt={gift.name}
-            width={200}
-            height={200}
-            className="rounded-full"
+            width={250}
+            height={250}
+            className="object-cover rounded-xl animate-reveal-blur"
           />
         )}
       </div>
-      <p className="text-xl font-semibold text-title">{gift.name}</p>
+
+      <p className="text-xl font-semibold text-subtitle animate-reveal-blur">
+        {gift.name.toUpperCase()}
+      </p>
+
       <a
         href={`/#${gift.nextIdentifier}`}
-        className="mt-4 bg-primary/80 text-title font-semibold px-4 py-2 rounded-lg"
+        className="bg-primary text-title font-semibold p-4 rounded-lg"
       >
-        Voltar para os presentes
+        {gift.nextIdentifier
+          ? 'Desvendar a próxima pista'
+          : 'Concluir aventura 🌟'}
       </a>
     </section>
   );

@@ -1,9 +1,9 @@
 export class FoundGift {
   name: string;
   image?: string;
-  nextIdentifier: string;
+  nextIdentifier?: string;
 
-  constructor(name: string, nextIdentifier: string, image?: string) {
+  constructor(name: string, nextIdentifier?: string, image?: string) {
     this.name = name;
     this.image = image;
     this.nextIdentifier = nextIdentifier;

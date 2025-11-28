@@ -1,6 +1,6 @@
-import ExplosionConfetti from './explosionConfetti';
-import FullScreenConfetti from './fullScreenConfetti';
-import LateralConfetti from './lateralConfetti';
+import ExplosionConfetti from '../atoms/confetti/explosionConfetti';
+import FullScreenConfetti from '../atoms/confetti/fullScreenConfetti';
+import LateralConfetti from '../atoms/confetti/lateralConfetti';
 
 const confettiMap: { [key: number]: React.ReactNode } = {
   1: <LateralConfetti />,
