@@ -24,12 +24,12 @@ export default function GiftCard({ gift, unlocked }: CardProps) {
     unlocked
       ? `${
           isFound ? 'bg-primary/1' : 'bg-background'
-        } p-5 border border-primary/30 rounded-lg`
-      : 'bg-transparent px-5 py-1'
+        } p-2 md:p-5 border border-primary/30 rounded-lg`
+      : 'bg-transparent px-2 md:px-5 py-1'
   );
 
   const iconClass = clsx(
-    'p-2 w-min h-min rounded-full [&>svg]:w-5 [&>svg]:h-5',
+    'p-1 md:p-2 w-min h-min rounded-full [&>svg]:w-5 [&>svg]:h-5',
     isFound ? 'bg-primary/10' : unlocked ? 'bg-secondary/10' : 'bg-transparent'
   );
 

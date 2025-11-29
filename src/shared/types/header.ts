@@ -1,3 +1,5 @@
+import { imagePathValidation } from '@/util';
+
 export class Header {
   title: string;
   description: string;
@@ -12,9 +14,7 @@ export class Header {
   static fromJson(json: any): Header {
     const title = json.data.Title;
     const description = json.data.Description;
-    const image = json.data.Picture?.url
-      ? `${process.env.STRAPI_BASEURL}${json.data.Picture.url}`
-      : undefined;
+    const image = imagePathValidation(json.data.Picture?.url);
 
     return new Header(title, description, image);
   }

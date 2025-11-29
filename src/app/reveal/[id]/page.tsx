@@ -1,7 +1,6 @@
 import { fetchStrapi } from '@/app/api/strapi';
 import RandomConfetti from '@/components/molecules/randomConfetti';
 import { FoundGift } from '@/shared/types/foundGift';
-import Image from 'next/image';
 
 export default async function GiftPage({ params }: { params: { id: string } }) {
   const { id } = await params;
@@ -30,13 +29,7 @@ export default async function GiftPage({ params }: { params: { id: string } }) {
 
       {gift.image && (
         <div className="relative bg-css-noise p-8 rounded-xl animate-reveal-blur">
-          <Image
-            src={gift.image}
-            alt={gift.name}
-            width={200}
-            height={200}
-            className="object-cover"
-          />
+          <img src={gift.image} alt={gift.name} className="object-cover h-52" />
         </div>
       )}
 

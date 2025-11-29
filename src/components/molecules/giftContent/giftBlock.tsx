@@ -67,23 +67,22 @@ export default function GiftBlock({ section, isEnable = false }: BlockProps) {
     <article
       onClick={() => isEnable && setOpen(!open)}
       className={clsx(
-        'flex flex-col w-lg gap-4 p-4 rounded-xl border transition-all',
+        'flex flex-col w-xs md:w-lg gap-2 md:gap-4 p-4 rounded-xl border transition-all',
         'border-[rgba(237,228,222,1)]',
         isEnable
           ? 'cursor-pointer bg-secondary/2'
           : 'cursor-not-allowed bg-secondary/10 opacity-80'
       )}
     >
-      <div className="grid grid-cols-[120px_auto] md:grid-cols-[370px_auto] items-center gap-4">
-        <div className="flex items-center gap-4">
+      <div className="flex flex-col md:grid md:grid-cols-[370px_auto] items-center gap-4">
+        <div className="flex flex-row items-center gap-4">
           <div
             className={clsx(
-              'bg-light/16 rounded-full p-4 h-min',
-              '[&>svg]:w-7 [&>svg]:h-7',
+              'bg-light/16 rounded-full p-2 md:p-4 h-min',
               lightText
             )}
           >
-            <Icon />
+            <Icon className="w-5 h-5 md:w-7 md:h-7" />
           </div>
 
           <div className="flex flex-col">
@@ -91,7 +90,13 @@ export default function GiftBlock({ section, isEnable = false }: BlockProps) {
               {section.name}
             </span>
 
-            <h4 className={clsx('text-lg font-bold', fadedText, blurClass)}>
+            <h4
+              className={clsx(
+                'text-md md:text-lg font-bold',
+                fadedText,
+                blurClass
+              )}
+            >
               {safeTitle}
             </h4>
 
@@ -104,8 +109,8 @@ export default function GiftBlock({ section, isEnable = false }: BlockProps) {
         </div>
 
         {isEnable ? (
-          <div className="flex items-center gap-2">
-            <div className="flex flex-col items-end">
+          <div className="flex w-full items-center gap-2 mb-2 md:mb-0">
+            <div className="flex flex-col w-full items-end">
               <span className="text-sm text-regular/60">
                 {section.unlockedGiftsCount}/{section.gifts.length}
               </span>

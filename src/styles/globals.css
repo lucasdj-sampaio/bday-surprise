@@ -76,7 +76,7 @@ button {
 
 @layer components {
   .content-card {
-    @apply bg-background py-8 px-4 md:p-8 max-w-[100%] md:min-w-[80vw] border-1 border-[rgba(237,228,222,1)] rounded-lg shadow-[0px_4px_24px_-4px_rgba(83,45,54,0.1)];
+    @apply bg-background py-8 px-4 md:p-8 max-w-[95vw] md:min-w-[80vw] border-1 border-[rgba(237,228,222,1)] rounded-lg shadow-[0px_4px_24px_-4px_rgba(83,45,54,0.1)];
     @apply flex flex-col gap-4 items-center;
   }
 
